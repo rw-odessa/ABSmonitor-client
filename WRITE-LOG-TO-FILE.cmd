@@ -54,7 +54,9 @@ SET LOG_FILE_NAME="%LOG_DIR%LOG_%DA%.txt"
 REM ==================================================
 REM Удалим старые лог-файлы.
 IF EXIST "%RUN_DIR%DEL-OLD-LOGS.cmd" (
-CALL "%RUN_DIR%DEL-OLD-LOGS.cmd" "%LOG_DIR%" "5" || ECHO %date% %time% - ERROR RUN DEL-OLD-LOGS.cmd
+CALL "%RUN_DIR%DEL-OLD-LOGS.cmd" "%LOG_DIR%" "3" || ECHO %date% %time% - ERROR RUN DEL-OLD-LOGS.cmd
+) ELSE (
+ECHO %date% %time% - WARNING, "%RUN_DIR%DEL-OLD-LOGS.cmd" NOT FOUND
 )
 
 REM ==================================================

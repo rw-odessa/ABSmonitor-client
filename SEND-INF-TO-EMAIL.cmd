@@ -8,7 +8,7 @@ REM ==================================================
 REM Установка переменных
 
 REM Имя модуля.
-SET MODUL_NAME=SEND-INF-TO-NET
+SET MODUL_NAME=SEND-INF-TO-EMAIL
 
 REM Каталог запуска скрипта.
 SET "RUN_DIR=%~dp0"
@@ -26,7 +26,7 @@ REM Утилита предачи сообщений.
 SET "EMAIL_SEND=%RUN_DIR%mailsend1-16.exe"
 
 REM Каталог размещения лог-файлов.
-SET LOG_DIR=%RUN_DIR%
+SET LOG_DIR=%RUN_DIR%\LOGS\
 
 REM Маска поиска лог-файлов.
 SET FILES_TYPE=*log*.txt
@@ -63,10 +63,10 @@ REM==================================================
 REM Найдем самый свежий лог файл 
 for /f %%a IN ('dir /o:-d /a:-d /s /b "%LOG_DIR%%FILES_TYPE%"') do (
 SET "LOG_FILE=%%a"
-GOTO 1
+GOTO NEXT
 )
 
-:1 
+:NEXT
 REM ==================================================
 REM Пароверим наличие лог-файла.
 IF NOT EXIST "%LOG_FILE%" (

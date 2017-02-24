@@ -18,7 +18,7 @@ REM Каталог запуска скрипта.
 SET RUNDIR=%~dp0
 
 REM Имя файла.
-SET FILE=%~1
+SET IN_FILE=%~1
 
 REM Временная папка.
 SET TEMPDIR=%RUNDIR%TEMP-FOR-SIZE\
@@ -36,12 +36,10 @@ EXIT /B 1
 
 REM ==================================================
 REM Копируем если задан не файл а маска, найдем самый свежий файл.
-SET /A FILECOUNT=0
-for /f %%a in ('dir /b /o:-d "%FILE%"') do (
-ECHO %date% %time% - OK, FOUND FILE %%a
+for /f %%a in ('dir /s /b /o:-d "%IN_FILE%"') do (
 SET FILE=%%a
-if !FILECOUNT! == 1 goto NEXT
-SET /A FILECOUNT=FILECOUNT+1
+ECHO %date% %time% - OK, FOUND FILE %%a
+goto NEXT
 )
 :NEXT
 

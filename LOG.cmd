@@ -92,7 +92,7 @@ ECHO %date% %time% - %MODUL_NAME%, ERROR CALL WRITE-LOG-TO-FILE.cmd
 
 REM ==================================================
 REM Отправка сообщения на сервер.
-call cscript.exe "%RUN_DIR%SEND-INF-TO-SERVER.js" "http://10.104.4.43:8080/?program=%MESSAGE_SOURCE%&status=%STATUS%&message=%MESSAGE%" || (
+call cscript.exe "%RUN_DIR%SEND-INF-TO-SERVER.js" "http://10.104.1.185:80/?program=%MESSAGE_SOURCE%&status=%STATUS%&message=%MESSAGE%" || (
 ECHO %date% %time% - %MODUL_NAME%, ERROR CALL cscript.exe %RUN_DIR%SEND-INF-TO-SERVER.js
 REM CALL WRITE-LOG-TO-FILE.cmd "%MODUL_NAME%, ERROR CALL cscript.exe"
 )

@@ -1,52 +1,58 @@
 @ECHO OFF
 setlocal
 
-REM Проверка наличия процесса в памяти.
-REM V 1.0.0 - первая эксплуатационная версия.
+REM ▐Ю╝╒╔Ю╙═ ╜═╚╗Г╗О ╞Ю╝Ф╔АА═ ╒ ╞═╛ОБ╗.
+REM V 1.0.0 - ╞╔Ю╒═О М╙А╞╚Ц═Б═Ф╗╝╜╜═О ╒╔ЮА╗О.
+REM V 1.0.1 - ┌К║╝Ю ЦБ╗╚╗БК А╞╗А╙═ ╞Ю╝Ф╔АА╝╒ ╒ ╞═╛ОБ╗.
 
-REM использование CHECK-PROCESS.cmd PROCESS_NAME
+REM ╗А╞╝╚Л╖╝╒═╜╗╔ CHECK-PROCESS.cmd PROCESS_NAME
 
 REM ==================================================
-REM Установка переменных
+REM ⌠АБ═╜╝╒╙═ ╞╔Ю╔╛╔╜╜КЕ
 
-REM Имя модуля.
+REM ┬╛О ╛╝╓Ц╚О.
 SET MODUL_NAME=CHECK-PROCESS
 
-REM Каталог запуска скрипта.
+REM ┼═Б═╚╝ё ╖═╞ЦА╙═ А╙Ю╗╞Б═.
 SET RUN_DIR=%~dp0
 
-REM Сообщение.
+REM ▒╝╝║И╔╜╗╔.
 SET PROCESS_NAME=%~1
 
+REM TaskList utils
+REM SET TASK_LIST=%windir%/system32/tasklist.exe
+SET TASK_LIST=%RUN_DIR%pslist.exe
+
 REM ==================================================
-REM Если сообщение не передано 1-ым параметром коммандной строки, то выход.
+REM ┘А╚╗ А╝╝║И╔╜╗╔ ╜╔ ╞╔Ю╔╓═╜╝ 1-К╛ ╞═Ю═╛╔БЮ╝╛ ╙╝╛╛═╜╓╜╝╘ АБЮ╝╙╗, Б╝ ╒КЕ╝╓.
 IF "%PROCESS_NAME%"=="" (
 ECHO %date% %time% - PROCESS NAME IS EMPTY
 EXIT /B 1
 )
 
 REM ==================================================
-REM Пароверим наличие утилиты tasklist
-IF NOT EXIST "%windir%/system32/tasklist.exe" (
-ECHO %date% %time% - tasklist.exe NOT FOUND
+REM ▐═Ю╝╒╔Ю╗╛ ╜═╚╗Г╗╔ ЦБ╗╚╗БК tasklist
+IF NOT EXIST "%TASK_LIST%" (
+ECHO %date% %time% - %TASK_LIST% NOT FOUND
 EXIT /B 1
 )
 
 REM ==================================================
-REM Пароверим наличие утилиты find
+REM ▐═Ю╝╒╔Ю╗╛ ╜═╚╗Г╗╔ ЦБ╗╚╗БК find
 IF NOT EXIST "%windir%/system32/find.exe" (
 ECHO %date% %time% - find.exe NOT FOUND
 EXIT /B 1
 )
 
 REM ==================================================
-REM Проверка существования процесса в памяти.
-CALL "%windir%/system32/tasklist.exe" /NH /FI "IMAGENAME eq %PROCESS_NAME%.exe" | "%windir%/system32/find.exe" /I "%PROCESS_NAME%.exe" && (
+REM ▐Ю╝╒╔Ю╙═ АЦИ╔АБ╒╝╒═╜╗О ╞Ю╝Ф╔АА═ ╒ ╞═╛ОБ╗.
+REM CALL "%TASK_LIST%" /NH /FI "IMAGENAME eq %PROCESS_NAME%.exe" | "%windir%/system32/find.exe" /I "%PROCESS_NAME%.exe" && (
+CALL "%TASK_LIST%" | "%windir%/system32/find.exe" /I "%PROCESS_NAME%" && (
 ECHO %date% %time% - FOUND PROCESS %PROCESS_NAME%
 EXIT /B 0
 )
 
 REM ==================================================
-REM Если процесса в памяти не найдено.
+REM ┘А╚╗ ╞Ю╝Ф╔АА═ ╒ ╞═╛ОБ╗ ╜╔ ╜═╘╓╔╜╝.
 ECHO %date% %time% - PROCESS %PROCESS_NAME% NOT FOUND
 EXIT /B 1
